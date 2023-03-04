@@ -12,7 +12,7 @@ export interface PollApiData {
   expires_timestamp: number,
 }
 
-type ResponseData = {
+export type WritePollResponseData = {
   success: boolean,
   payload?: {
     id: string,
@@ -20,7 +20,7 @@ type ResponseData = {
   }
 }
 
-export type PollApiResponse = NextApiResponse<ResponseData>
+export type PollApiResponse = NextApiResponse<WritePollResponseData>
 
 type PollStoreValue = {
   question: string,
@@ -68,10 +68,7 @@ export default async function handler(req: PollApiRequest, res: PollApiResponse)
         expires_timestamp: Math.floor(req.body.expires_timestamp),
         creator_token,
       }
-      console.log('body', req.body.expires_timestamp)
-      console.log('value', value.expires_timestamp)
       const ttl = calculateTtl(value.expires_timestamp)
-      console.log('ttl', ttl)
       await redis.set(id, JSON.stringify(value), {
         EX: ttl,
       })

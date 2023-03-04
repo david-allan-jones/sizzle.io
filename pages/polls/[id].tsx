@@ -8,7 +8,6 @@ export type PollApiResponseData = {
 }
 
 export default function IndexPage(props: { data: PollApiResponseData }) {
-    console.log('props', props.data)
     return <Layout>
         <p>{props.data.question}</p>
         <ul>

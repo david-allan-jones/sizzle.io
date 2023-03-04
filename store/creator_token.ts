@@ -2,7 +2,7 @@ const KEY = 'creator_token'
 
 export function createCreatorTokenStore() {
     const get = () => {
-        const current = localStorage.get(KEY) as string | undefined
+        const current = localStorage.getItem(KEY) as string | undefined
         if (!current) {
             return []
         }

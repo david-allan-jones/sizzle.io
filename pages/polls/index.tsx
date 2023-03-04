@@ -1,22 +1,22 @@
 import { FormEvent, useState } from "react"
 import { Option } from "@/components/Option"
-import { calculateTtl } from "@/utils/ttl"
 import { Layout } from "@/components/Layout"
+import { WritePollResponseData } from "../api/polls"
+import { createCreatorTokenStore } from "@/store/creator_token"
+import { LoadingAnimation } from "@/components/LoadingAnimation"
 
 export default function IndexPage() {
     const [question, setQuestion] = useState<string>('')
     const [option, setOption] = useState<string>('')
     const [savedOptions, setSavedOptions] = useState<string[]>([])
     const [expires, setExpires] = useState<Date>(new Date())
+    const [errorMessage, setErrorMessage] = useState<string>('')
+    const [loading, setLoading] = useState<boolean>(false)
 
-    const resetForm = () => {
-        setQuestion('')
-        setSavedOptions([])
-    }
-
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
-        fetch('/api/polls', {
+        setLoading(true)
+        const res = await fetch('/api/polls', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,7 +27,15 @@ export default function IndexPage() {
                 expires_timestamp: Math.floor(expires.getTime() / 1000),
             })
         })
-        resetForm()
+        const { success, payload } = await res.json() as WritePollResponseData
+        if (!success) {
+            setLoading(false)
+            setErrorMessage('There was a problem creating your poll. Please wait and try again later.')
+            return
+        }
+        const tokenStore = createCreatorTokenStore()
+        tokenStore.append(payload?.creator_token as string)
+        window.location.href = `/polls/${payload?.id}`
     }
 
     const handleAddOption = (e: React.MouseEvent) => {
@@ -73,6 +81,8 @@ export default function IndexPage() {
             </button>
             <input type="datetime-local" onChange={handleDateChange} defaultValue={expires.toISOString().slice(0, 16)} />
             <input type="submit" disabled={isDisabled} value="Create" />
+            <p>{errorMessage}</p>
+            <LoadingAnimation visible={loading} />
         </form>
     </Layout>
 }
