@@ -1,6 +1,7 @@
 import { Layout } from "@/components/Layout"
 import { LoadingAnimation } from "@/components/LoadingAnimation"
 import { createAnswerStore } from "@/store/answer_store"
+import { createCreatorTokenStore } from "@/store/creator_token"
 import { createRedis, Option, PollData } from "@/store/redis"
 import React, { FormEvent, useEffect, useState } from "react"
 
@@ -15,16 +16,22 @@ type Props = {
     data: PollApiResponseData,
 }
 
-const store = createAnswerStore()
+const tokenStore = createCreatorTokenStore()
+const answerStore = createAnswerStore()
 
 export default function IndexPage(props: Props) {
     const [selectedIdx, setSelectedIdx] = useState<number>(-1)
     const [answersVisible, setAnswersVisible] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
     const [errorMessage, setErrorMessage] = useState<string>('')
+    const [deleteVisible, setDeleteVisible] = useState<boolean>(false)
 
     useEffect(() => {
-        const answeredMap = store.get()
+        const tokenMap = tokenStore.get()
+        if (tokenMap[props.id] !== undefined) {
+            setDeleteVisible(true)
+        }
+        const answeredMap = answerStore.get()
         if (answeredMap[props.id] !== undefined) {
             setSelectedIdx(answeredMap[props.id])
             setAnswersVisible(true)
@@ -47,24 +54,46 @@ export default function IndexPage(props: Props) {
             setLoading(false)
             return
         }
-        store.append(props.id, selectedIdx)
+        answerStore.append(props.id, selectedIdx)
         setLoading(false)
         setAnswersVisible(true)
     }
 
+    const handleDelete = async () => {
+        const res = await fetch(`/api/polls/${props.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${tokenStore.get()[props.id]}`
+            },
+            body: JSON.stringify({ id: props.id })
+        })
+        if (res.status !== 200) {
+            return
+        }
+        window.location.href = '/'
+    }
+
     return <Layout>
         <form typeof="submit" action="/api/polls" method="post" onSubmit={handleSubmit}>
-        <p>{props.data.question}</p>
-        {props.data.options.map((o, i) => <div>
-            <input key={i} type="radio" onChange={() => setSelectedIdx(i)} id={o.text} name="answer-radio" />
-            <label htmlFor={o.text}>{o.text}</label>
-            {answersVisible && <p>{o.count} answers</p>}
-        </div>)}
-        <p>{props.data.expires_timestamp}</p>
-        <input type="submit" value="Submit" disabled={answersVisible || (!answersVisible && selectedIdx === -1)} />
-        <p>{errorMessage}</p>
+            <p>{props.data.question}</p>
+            {props.data.options.map((o, i) => <div>
+                <input
+                    key={i}
+                    disabled={answersVisible}
+                    type="radio"
+                    onChange={() => setSelectedIdx(i)} id={o.text}
+                    name="answer-radio"
+                />
+                <label htmlFor={o.text}>{o.text}</label>
+                {answersVisible && <p>{o.count} answers</p>}
+            </div>)}
+            <p>{props.data.expires_timestamp}</p>
+            <input type="submit" value="Submit" disabled={answersVisible || (!answersVisible && selectedIdx === -1)} />
+            <p>{errorMessage}</p>
+        </form>
+        {deleteVisible && <button onClick={handleDelete}>Delete</button>}
         <LoadingAnimation visible={loading} />
-        </form>     
     </Layout>
 }
 

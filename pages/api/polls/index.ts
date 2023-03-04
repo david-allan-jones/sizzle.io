@@ -82,36 +82,5 @@ export default async function handler(req: PollApiRequest, res: PollApiResponse)
         }
       })
     }
-    if (req.method === 'DELETE') {
-      const { id } = req.body
-      const bearer_token = getBearerToken(req)
-      if (!(id && bearer_token)) {
-        return res.status(400).end()
-      }
-      const redis = await createRedis()
-
-      redis.on('error', err => {
-        console.error(err)
-        return res.status(500).end()
-      })
-
-      await redis.connect()
-
-      const value = await redis.get(id)
-      if (!value) {
-        return res.status(400).end()
-      }
-      const deserialized = JSON.parse(value) as { creator_token: string }
-      if (bearer_token !== deserialized.creator_token) {
-        return res.status(400).end()
-      }
-
-      await redis.del(id)
-      await redis.disconnect()
-
-      return res.json({
-        success: true
-      })
-    }
     return res.status(404).end()
   }

@@ -34,7 +34,7 @@ export default function IndexPage() {
             return
         }
         const tokenStore = createCreatorTokenStore()
-        tokenStore.append(payload?.creator_token as string)
+        tokenStore.append(payload?.id as string, payload?.creator_token as string)
         window.location.href = `/polls/${payload?.id}`
     }
 
