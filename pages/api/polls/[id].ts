@@ -1,27 +1,35 @@
+import { PollApiResponseData } from '@/pages/polls/[id]'
+import { createRedis, PollData } from '@/store/redis'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { PollApiData } from './index'
 
-interface PollData extends PollApiData {
-    id: string
-}
+type GetResponse = NextApiResponse<PollApiResponseData>
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<PollData>) {
-    if (req.method === 'GET') {
-        const id = req.query.id as string
-        if (!id) {
-            return res.status(500).end()
-        }
-        return res.json({
-            id,
-            question: 'What is your favorite color?',
-            options: [
-                'blue',
-                'red',
-                'yellow',
-                'green',
-            ],
-            ttl_in_seconds: 60 * 60 //1 hour
-        })
+export default async function handler(req: NextApiRequest, res: GetResponse) {
+    if (req.method !== 'GET') {
+        return res.status(404).end()
     }
-    return res.status(404).end()
+
+    const id = req.query.id as string
+    if (!id) {
+        return res.status(400).end()
+    }
+    const redis = createRedis()
+    redis.on('error', (err) => {
+        console.error(err)
+        return res.status(500).end()
+    })
+
+    await redis.connect()
+    const value = await redis.get(id)
+    if (!value) {
+        return res.status(404).end()
+    }
+    await redis.disconnect()
+
+    const pollData = JSON.parse(value) as PollData
+    return res.json({
+        question: pollData.question,
+        options: pollData.options,
+        expires_timestamp: pollData.expires_timestamp,
+    })
   }
