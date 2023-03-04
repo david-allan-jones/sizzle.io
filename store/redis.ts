@@ -16,6 +16,7 @@ export type PollData = {
 export function createRedis() {
     const redis = createClient({
         url: process.env.NODE_REDIS_URL,
+        username: process.env.NODE_REDIS_USERNAME,
         password: process.env.NODE_REDIS_PASSWORD,
     })
     return redis

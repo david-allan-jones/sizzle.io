@@ -29,11 +29,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         })
     }
     if (req.method === 'DELETE') {
-        console.log('hit')
         const { id } = req.body
         const bearer_token = getBearerToken(req)
-        console.log('id', id)
-        console.log('bearer', bearer_token)
         if (!(id && bearer_token)) {
             return res.status(400).end()
         }
