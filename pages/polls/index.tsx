@@ -1,9 +1,10 @@
-import { FormEvent, useState } from "react"
+import { FormEvent, useRef, useState } from "react"
 import { Option } from "@/components/Option"
 import { Layout } from "@/components/Layout"
 import { WritePollResponseData } from "../api/polls"
 import { createCreatorTokenStore } from "@/store/creator_token"
 import { LoadingAnimation } from "@/components/LoadingAnimation"
+import styles from '@/styles/Home.module.css'
 
 export default function IndexPage() {
     const [question, setQuestion] = useState<string>('')
@@ -12,6 +13,8 @@ export default function IndexPage() {
     const [expires, setExpires] = useState<Date>(new Date())
     const [errorMessage, setErrorMessage] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
+
+    const optionInputRef = useRef(null)
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
@@ -41,6 +44,7 @@ export default function IndexPage() {
     const handleAddOption = (e: React.MouseEvent) => {
         setSavedOptions([...savedOptions, option])
         setOption('')
+        optionInputRef.current.focus()
     }
 
     const handleDateChange = (e: any) => {
@@ -50,13 +54,16 @@ export default function IndexPage() {
     const isDisabled = !question || !savedOptions.length
 
     return <Layout>
-        <form typeof="submit" action="/api/polls" method="post" onSubmit={handleSubmit}>
-            <input
-                type="text"
-                value={question}
-                placeholder="What is your favorite color?"
-                onChange={(e) => setQuestion(e.target.value)}
-            />
+        <form className={styles.form} typeof="submit" action="/api/polls" method="post" onSubmit={handleSubmit}>
+            <p>Input your poll data</p>
+            <div>
+                <input
+                    type="text"
+                    value={question}
+                    placeholder="What is your favorite color?"
+                    onChange={(e) => setQuestion(e.target.value)}
+                />
+            </div>
             {savedOptions.map((o, index) => (
                 <Option
                     key={index}
@@ -66,21 +73,28 @@ export default function IndexPage() {
                     }}
                 />
             ))}
-            <input
-                type="text"
-                value={option}
-                placeholder="Option #1"
-                onChange={(e) => setOption(e.target.value)}
-            />
-            <button
-                disabled={option === ""}
-                type="button"
-                onClick={handleAddOption}
-            >
-                +
-            </button>
-            <input type="datetime-local" onChange={handleDateChange} defaultValue={expires.toISOString().slice(0, 16)} />
-            <input type="submit" disabled={isDisabled} value="Create" />
+            <div>
+                <input
+                    ref={optionInputRef}
+                    type="text"
+                    value={option}
+                    placeholder="Option #1"
+                    onChange={(e) => setOption(e.target.value)}
+                />
+                <button
+                    disabled={option === ""}
+                    type="button"
+                    onClick={handleAddOption}
+                >
+                    +
+                </button>
+            </div>
+            <div>
+                <input type="datetime-local" onChange={handleDateChange} defaultValue={expires.toISOString().slice(0, 16)} />
+            </div>
+            <div>
+                <input className={styles.primaryBtn} type="submit" disabled={isDisabled} value="Create" />
+            </div>
             <p>{errorMessage}</p>
             <LoadingAnimation visible={loading} />
         </form>

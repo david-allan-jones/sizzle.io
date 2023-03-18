@@ -24,9 +24,11 @@
 }
 
 .primaryBtn {
+    font-family: 'Poppins', sans-serif;
+    color: white;
     background-color: transparent;
     border: solid 1px #946800;
-    border-radius: 20px;
+    border-radius: 10px;
     height: 40px;
     line-height: 40px;
     transition: background-color 0.3s ease;
@@ -35,4 +37,28 @@
 .primaryBtn:hover {
     background-color: #FFB200;
     transition: background-color 0.5s ease;
+}
+
+.form {
+    text-align: center;
+    padding: 10px 20px;
+    background-color: #383838;
+}
+
+.form > div {
+    margin-bottom: 12px;
+}
+
+.form > div > input[type="text"] {
+    color: white;
+    outline: none;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid white;
+}
+
+.form > div > input[type="text"]:focus {
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid #FFB200;
 }
