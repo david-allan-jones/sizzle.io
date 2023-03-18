@@ -4,7 +4,7 @@ import styles from '@/styles/Layout.module.css'
 
 export function Layout(props: React.PropsWithChildren) {
     return (
-        <div>
+        <div className={styles.layoutWrapper}>
             <Head>
                 <title>Snapvote</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device=width" />

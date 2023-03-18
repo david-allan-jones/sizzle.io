@@ -1,12 +1,18 @@
+.layoutWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .contentWrapper {
     padding: 50px 20px;
+    flex: 1;
 }
 
 .footer {
     bottom: 0;
     height: 100px;
-    left: 0;
-    position: absolute;
+    position: sticky;
     width: 100%;
     background-color: #383838;
 }
