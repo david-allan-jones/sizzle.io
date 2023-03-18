@@ -58,6 +58,10 @@ export default function IndexPage() {
             setErrorMessage('You may not use an empty string as an option')
             return
         }
+        if (option.length > 100) {
+            setErrorMessage('You may only use options that are 100 characters or less')
+            return
+        }
         setSavedOptions([...savedOptions, option])
         setOption('')
         optionInputRef.current.focus()

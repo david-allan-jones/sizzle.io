@@ -86,12 +86,6 @@
     transition: background-color 0.5s ease;
 }
 
-.deleteOptionBtn {
-    width: 40px;
-    height: 40px;
-    margin-right: 20px;
-}
-
 .form {
     border-radius: 5px;
     text-align: center;
