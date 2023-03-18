@@ -88,7 +88,6 @@ export default function IndexPage(props: Props) {
                 <label htmlFor={o.text}>{o.text}</label>
                 {answersVisible && <p>{o.count} answers</p>}
             </div>)}
-            <p>{props.data.expires_timestamp}</p>
             <input type="submit" value="Submit" disabled={answersVisible || (!answersVisible && selectedIdx === -1)} />
             <p>{errorMessage}</p>
         </form>

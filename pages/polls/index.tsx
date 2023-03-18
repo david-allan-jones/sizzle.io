@@ -3,14 +3,17 @@ import { Option } from "@/components/Option"
 import { Layout } from "@/components/Layout"
 import { WritePollResponseData } from "../api/polls"
 import { createCreatorTokenStore } from "@/store/creator_token"
+import DatePicker from 'react-datepicker'
 import { LoadingAnimation } from "@/components/LoadingAnimation"
 import styles from '@/styles/Home.module.css'
+
+const ONE_DAY = 86400000
 
 export default function IndexPage() {
     const [question, setQuestion] = useState<string>('')
     const [option, setOption] = useState<string>('')
     const [savedOptions, setSavedOptions] = useState<string[]>([])
-    const [expires, setExpires] = useState<Date>(new Date())
+    const [expires, setExpires] = useState<Date>(new Date((new Date()).getTime() + ONE_DAY))
     const [errorMessage, setErrorMessage] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
 
@@ -60,6 +63,7 @@ export default function IndexPage() {
 
     const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Enter') {
+            e.preventDefault()
             handleAddOption()
         }
     }
@@ -110,7 +114,9 @@ export default function IndexPage() {
                     +
                 </button>
                 <span className={styles.datePrompt}>Expiration Date:</span>
-                <input className={styles.dateInput} type="datetime-local" onChange={handleDateChange} defaultValue={expires.toISOString().slice(0, 16)} />
+                <div className={styles.dateInput}>
+                    <DatePicker selected={expires} onChange={(date: Date) => setExpires(date)} />
+                </div>
             </div>
             <input className={`${styles.primaryBtn} full-width`} type="submit" disabled={isDisabled} value="Create" />
             <p>{errorMessage}</p>

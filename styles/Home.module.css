@@ -161,3 +161,9 @@
     border-bottom: 1px solid white;
     color: white;
 }
+
+.dateInput:focus {
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid #FFB200;
+}
