@@ -5,3 +5,7 @@ html, body {
     padding: 0;
     font-family: arial;
 }
+
+.full-width {
+    width: 100%;
+}

@@ -1,3 +1,32 @@
+@media screen and (max-width: 600px) {
+    .grid {
+        display: grid;
+        gap: 0.5rem;
+        grid-template-areas:
+            "q-prom  q-prom"
+            "q-input q-input"
+            "s-opts  s-opts"
+            "o-prom  o-prom"
+            "o-input o-btn"
+            "d-prom  d-prom"
+            "d-input d-input"
+        ;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-areas:
+            "q-prom q-input q-input ."
+            ".      s-opts  s-opts  s-opts"
+            "o-prom o-input o-input o-btn"
+            "d-prom d-input d-input ."
+        ;
+    }
+}
+
 .container {
     font-size: 14px;
     font-family: 'Poppins', sans-serif;
@@ -35,11 +64,36 @@
 }
 
 .primaryBtn:hover {
+    cursor: pointer;
     background-color: #FFB200;
     transition: background-color 0.5s ease;
 }
 
+.secondaryBtn {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    background-color: transparent;
+    border: solid 1px #946800;
+    border-radius: 10px;
+    height: 40px;
+    line-height: 40px;
+    transition: background-color 0.3s ease;
+}
+
+.secondaryBtn:hover {
+    cursor: pointer;
+    background-color: #FFB200;
+    transition: background-color 0.5s ease;
+}
+
+.deleteOptionBtn {
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+}
+
 .form {
+    border-radius: 5px;
     text-align: center;
     padding: 10px 20px;
     background-color: #383838;
@@ -49,7 +103,8 @@
     margin-bottom: 12px;
 }
 
-.form > div > input[type="text"] {
+.textInput {
+    width: 100%;
     color: white;
     outline: none;
     border: none;
@@ -57,8 +112,52 @@
     border-bottom: 1px solid white;
 }
 
-.form > div > input[type="text"]:focus {
+.textInput:focus {
     border: none;
     background: transparent;
     border-bottom: 1px solid #FFB200;
+}
+
+.questionPrompt {
+    justify-self: left;
+    grid-area: q-prom;
+}
+
+.questionInput {
+    justify-self: left;
+    grid-area: q-input;
+}
+
+.savedOptions {
+    justify-self: left;
+    grid-area: s-opts;
+}
+
+.optionPrompt {
+    justify-self: left;
+    grid-area: o-prom;
+}
+
+.optionInput {
+    justify-self: left;
+    grid-area: o-input;
+}
+
+.addOptionBtn {
+    justify-self: right;
+    grid-area: o-btn;
+}
+
+.datePrompt {
+    justify-self: left;
+    grid-area: d-prom;
+}
+
+.dateInput {
+    justify-self: left;
+    grid-area: d-input;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
 }
