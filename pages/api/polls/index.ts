@@ -42,6 +42,16 @@ const createId = () => generateRandomBase64String(16)
 
 export default async function handler(req: PollApiRequest, res: PollApiResponse) {
     if (req.method === 'POST') {
+      if (typeof req.body.question !== 'string') {
+        return res.status(400).end()
+      }
+      if (req.body.options.length >= 10) {
+        return res.status(400).end()
+      }
+      if (typeof req.body.expires_timestamp !== 'number') {
+        return res.status(400).end()
+      }
+
       const redis = createRedis()
       
       redis.on('error', err => {

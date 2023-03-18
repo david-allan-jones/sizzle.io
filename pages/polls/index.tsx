@@ -50,21 +50,24 @@ export default function IndexPage() {
     }
 
     const handleAddOption = () => {
-        if (option !== '') {
-            setSavedOptions([...savedOptions, option])
-            setOption('')
-            optionInputRef.current.focus()
+        if (savedOptions.length === 10) {
+            setErrorMessage('You may only enter a max of 10 options')
+            return
         }
-    }
-
-    const handleDateChange = (e: any) => {
-        setExpires(new Date(e.target.value))
+        if (option === '') {
+            setErrorMessage('You may not use an empty string as an option')
+            return
+        }
+        setSavedOptions([...savedOptions, option])
+        setOption('')
+        optionInputRef.current.focus()
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Enter') {
             e.preventDefault()
             handleAddOption()
+            optionInputRef.current.scrollIntoView();
         }
     }
 
