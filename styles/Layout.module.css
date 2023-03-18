@@ -1,0 +1,36 @@
+.contentWrapper {
+    padding: 50px 20px;
+}
+
+.footer {
+    bottom: 0;
+    height: 100px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    background-color: #313131;
+}
+
+.flexContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    font-size: 0.8rem;
+}
+
+.flexItem > div {
+    padding: 5px 0;
+}
+
+.flexItem > div > a {
+    text-decoration: none;
+    color: white;
+    border: solid 1px transparent;
+    border-radius: 5px;
+}
+
+.flexItem > div > a:hover {
+    border: solid 1px white;
+}

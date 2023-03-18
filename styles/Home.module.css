@@ -1,0 +1,38 @@
+.container {
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.noMargin {
+    margin: 0;
+}
+
+.snapvote {
+    margin-top: 0;
+    font-size: 32px;
+    background: linear-gradient(25deg, yellow, #FFB200, red);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.link {
+    font-family: Poppins;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+}
+
+.primaryBtn {
+    background-color: transparent;
+    border: solid 1px #946800;
+    border-radius: 20px;
+    height: 40px;
+    line-height: 40px;
+    transition: background-color 0.3s ease;
+}
+
+.primaryBtn:hover {
+    background-color: #FFB200;
+    transition: background-color 0.5s ease;
+}
