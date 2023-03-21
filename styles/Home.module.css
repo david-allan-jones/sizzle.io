@@ -29,7 +29,6 @@
 
 .container {
     font-size: 14px;
-    font-family: 'Poppins', sans-serif;
     text-align: center;
 }
 
@@ -46,14 +45,12 @@
 }
 
 .link {
-    font-family: Poppins;
     text-decoration: none;
     color: white;
     text-align: center;
 }
 
 .primaryBtn {
-    font-family: 'Poppins', sans-serif;
     color: white;
     background-color: transparent;
     border: solid 2px #946800;
@@ -70,7 +67,6 @@
 }
 
 .secondaryBtn {
-    font-family: 'Poppins', sans-serif;
     color: white;
     background-color: transparent;
     border: solid 2px #946800;
@@ -88,7 +84,6 @@
 }
 
 .deleteBtn {
-    font-family: 'Poppins', sans-serif;
     color: white;
     background-color: transparent;
     border: solid 2px #946800;
@@ -105,7 +100,6 @@
 }
 
 .form {
-    font-family: Poppins;
     text-align: center;
 }
 
