@@ -1,5 +1,5 @@
 html, body {
-    background-color: #292929;
+    background: linear-gradient(35deg, yellow 10%, #FFB200 50%, red);
     color: white;
     margin: 0;
     padding: 0;
@@ -8,4 +8,10 @@ html, body {
 
 .full-width {
     width: 100%;
+}
+
+.darkgray-bg {
+    background-color: #383838dd;
+    padding: 12px;
+    border-radius: 12px;
 }
