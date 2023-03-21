@@ -13,9 +13,7 @@ export function Option(props: { value: string, onDelete: () => void }) {
         >
             -
         </button>
-        <span
-            style={{ flex: 4 }}
-        >
+        <span style={{ fontFamily: 'arial' }}>
             {option}
         </span>
     </div>

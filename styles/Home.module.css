@@ -87,10 +87,8 @@
 }
 
 .form {
-    border-radius: 5px;
+    font-family: Poppins;
     text-align: center;
-    padding: 10px 20px;
-    background-color: #383838;
 }
 
 .form > div {

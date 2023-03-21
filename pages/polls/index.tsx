@@ -78,17 +78,17 @@ export default function IndexPage() {
     const isDisabled = !question || !savedOptions.length
 
     return <Layout>
-        <form className={styles.form} typeof="submit" action="/api/polls" method="post" onSubmit={handleSubmit}>
+        <form className={`${styles.form} darkgray-bg`} typeof="submit" action="/api/polls" method="post" onSubmit={handleSubmit}>
             <p>Input your poll data</p>
             <div className={styles.grid}>
                 <span className={styles.questionPrompt}>Question:</span>
                 <input
-                        ref={questionInputRef}
-                        type="text"
-                        className={`${styles.textInput} ${styles.questionInput}`}
-                        value={question}
-                        placeholder="What is your favorite color?"
-                        onChange={(e) => setQuestion(e.target.value)}
+                    ref={questionInputRef}
+                    type="text"
+                    className={`${styles.textInput} ${styles.questionInput}`}
+                    value={question}
+                    placeholder="What is your favorite color?"
+                    onChange={(e) => setQuestion(e.target.value)}
                 />
                 <div className={styles.savedOptions}>
                 {savedOptions.map((o, index) => (
