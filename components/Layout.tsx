@@ -6,7 +6,7 @@ export function Layout(props: React.PropsWithChildren) {
     return (
         <div className={styles.layoutWrapper}>
             <Head>
-                <title>Snapvote</title>
+                <title>Sizzle</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device=width" />
                 <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -6,7 +6,7 @@ export default function IndexPage() {
     return <Layout>
         <div className={`${styles.container} darkgray-bg`}>
             <p className={styles.noMargin}>Welcome to</p>
-            <p className={styles.snapvote}>Snapvote!</p>
+            <p className={styles.sizzle}>Sizzle!</p>
             <Link className={styles.link} href="/polls">
                 <div className={styles.primaryBtn}>
                     Start a new poll
