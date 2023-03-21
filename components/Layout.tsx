@@ -22,7 +22,7 @@ export function Layout(props: React.PropsWithChildren) {
                     <div className={styles.flexItem}>
                         <p>LINKS</p>
                         <div>
-                            <a href="https://github.com/david-allan-jones/snapvote">Source Code</a>
+                            <a href="https://github.com/david-allan-jones/sizzle.io">Source Code</a>
                         </div>
                         <div>
                             <a href="https://davidjonesdev.com/contact">Contact Author</a>
