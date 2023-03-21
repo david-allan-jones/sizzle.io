@@ -87,6 +87,23 @@
     transition: background-color 0.5s ease;
 }
 
+.deleteBtn {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    background-color: transparent;
+    border: solid 2px #946800;
+    border-radius: 10px;
+    height: 40px;
+    line-height: 40px;
+    transition: background-color 0.3s ease;
+}
+
+.deleteBtn:hover {
+    cursor: pointer;
+    background-color: #FFB200;
+    transition: background-color 0.5s ease;
+}
+
 .form {
     font-family: Poppins;
     text-align: center;

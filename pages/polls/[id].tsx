@@ -4,6 +4,7 @@ import { createAnswerStore } from "@/store/answer_store"
 import { createCreatorTokenStore } from "@/store/creator_token"
 import { createRedis, Option, PollData } from "@/store/redis"
 import React, { FormEvent, useEffect, useState } from "react"
+import styles from '@/styles/Home.module.css'
 
 export type PollApiResponseData = {
     question: string,
@@ -75,9 +76,9 @@ export default function IndexPage(props: Props) {
     }
 
     return <Layout>
-        <form typeof="submit" action="/api/polls" method="post" onSubmit={handleSubmit}>
+        <form className={`${styles.form} darkgray-bg`} typeof="submit" action="/api/polls" method="post" onSubmit={handleSubmit}>
             <p>{props.data.question}</p>
-            {props.data.options.map((o, i) => <div>
+            {props.data.options.map((o, i) => <label htmlFor={o.text} className="radio-container">
                 <input
                     key={i}
                     disabled={answersVisible}
@@ -85,13 +86,16 @@ export default function IndexPage(props: Props) {
                     onChange={() => setSelectedIdx(i)} id={o.text}
                     name="answer-radio"
                 />
-                <label htmlFor={o.text}>{o.text}</label>
+                {o.text}
+                <span className="checkmark"></span>
                 {answersVisible && <p>{o.count} answers</p>}
-            </div>)}
-            <input type="submit" value="Submit" disabled={answersVisible || (!answersVisible && selectedIdx === -1)} />
-            <p>{errorMessage}</p>
+            </label>)}
+            <div>
+                <input className={styles.primaryBtn} type="submit" value="Submit" disabled={answersVisible || (!answersVisible && selectedIdx === -1)} />
+                <p>{errorMessage}</p>
+                {deleteVisible && <button className={styles.deleteBtn} onClick={handleDelete}>Delete</button>}
+            </div>
         </form>
-        {deleteVisible && <button onClick={handleDelete}>Delete</button>}
         <LoadingAnimation visible={loading} />
     </Layout>
 }
