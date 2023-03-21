@@ -37,7 +37,12 @@ export default function IndexPage(props: Props) {
             setSelectedIdx(answeredMap[props.id])
             setAnswersVisible(true)
         }
-    }, [])
+    }, [
+        props.id,
+        setDeleteVisible,
+        setSelectedIdx,
+        setAnswersVisible
+    ])
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
@@ -85,9 +90,8 @@ export default function IndexPage(props: Props) {
         >
             <p>{props.data.question}</p>
             <div>
-                {props.data.options.map((o, i) => <label htmlFor={o.text} className="radio-container">
+                {props.data.options.map((o, i) => <label key={i} htmlFor={o.text} className="radio-container">
                     <input
-                        key={i}
                         disabled={answersVisible}
                         type="radio"
                         onChange={() => setSelectedIdx(i)} id={o.text}
