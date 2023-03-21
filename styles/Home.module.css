@@ -75,6 +75,7 @@
     background-color: transparent;
     border: solid 2px #946800;
     border-radius: 10px;
+    width: 40px;
     height: 40px;
     line-height: 40px;
     transition: background-color 0.3s ease;
