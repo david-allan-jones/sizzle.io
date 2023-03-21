@@ -18,8 +18,8 @@ export default function IndexPage() {
     const [errorMessage, setErrorMessage] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
 
-    const questionInputRef = useRef<HTMLElement>(null)
-    const optionInputRef = useRef<HTMLElement>(null)
+    const questionInputRef = useRef<any>(null)
+    const optionInputRef = useRef<any>(null)
 
     useEffect(() => {
         if (questionInputRef.current) {
