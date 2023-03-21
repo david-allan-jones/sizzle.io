@@ -57,7 +57,7 @@ export default function IndexPage(props: Props) {
         }
         answerStore.append(props.id, selectedIdx)
         setLoading(false)
-        setAnswersVisible(true)
+        window.location.reload()
     }
 
     const handleDelete = async () => {
@@ -76,22 +76,35 @@ export default function IndexPage(props: Props) {
     }
 
     return <Layout>
-        <form className={`${styles.form} darkgray-bg`} typeof="submit" action="/api/polls" method="post" onSubmit={handleSubmit}>
+        <form
+            className={`${styles.form} darkgray-bg`}
+            typeof="submit"
+            action="/api/polls"
+            method="post"
+            onSubmit={handleSubmit}
+        >
             <p>{props.data.question}</p>
-            {props.data.options.map((o, i) => <label htmlFor={o.text} className="radio-container">
-                <input
-                    key={i}
-                    disabled={answersVisible}
-                    type="radio"
-                    onChange={() => setSelectedIdx(i)} id={o.text}
-                    name="answer-radio"
-                />
-                {o.text}
-                <span className="checkmark"></span>
-                {answersVisible && <p>{o.count} answers</p>}
-            </label>)}
             <div>
-                <input className={styles.primaryBtn} type="submit" value="Submit" disabled={answersVisible || (!answersVisible && selectedIdx === -1)} />
+                {props.data.options.map((o, i) => <label htmlFor={o.text} className="radio-container">
+                    <input
+                        key={i}
+                        disabled={answersVisible}
+                        type="radio"
+                        onChange={() => setSelectedIdx(i)} id={o.text}
+                        name="answer-radio"
+                    />
+                    {o.text}
+                    <span className={`${answersVisible ? 'display-none' : 'checkmark'}`}></span>
+                    {answersVisible && <p>{o.count} answers</p>}
+                </label>)}
+            </div>
+            <div>
+                <input
+                    className={styles.primaryBtn}
+                    type="submit"
+                    value="Submit"
+                    disabled={answersVisible || (!answersVisible && selectedIdx === -1)}
+                />
                 <p>{errorMessage}</p>
                 {deleteVisible && <button className={styles.deleteBtn} onClick={handleDelete}>Delete</button>}
             </div>
