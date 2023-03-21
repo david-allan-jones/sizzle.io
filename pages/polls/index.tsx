@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useRef, useState } from "react"
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react"
 import { Option } from "@/components/Option"
 import { Layout } from "@/components/Layout"
 import { WritePollResponseData } from "../api/polls"
@@ -26,6 +26,15 @@ export default function IndexPage() {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
+        if (question.length > 100) {
+            setErrorMessage('Questions can only be 100 characters or less.')
+            return
+        }
+        if (savedOptions.length < 2) {
+            setErrorMessage('You need to provide at least 2 options a poll.')
+            return
+        }
+
         setLoading(true)
         const res = await fetch('/api/polls', {
             method: 'POST',
@@ -47,6 +56,16 @@ export default function IndexPage() {
         const tokenStore = createCreatorTokenStore()
         tokenStore.append(payload?.id as string, payload?.creator_token as string)
         window.location.href = `/polls/${payload?.id}`
+    }
+
+    const handleQuestionChange = (e: { target: { value: string }}) => {
+        setQuestion(e.target.value)
+        setErrorMessage('')
+    }
+
+    const handleOptionChange = (e: { target: { value: string }}) => {
+        setOption(e.target.value)
+        setErrorMessage('')
     }
 
     const handleAddOption = () => {
@@ -75,8 +94,6 @@ export default function IndexPage() {
         }
     }
 
-    const isDisabled = !question || !savedOptions.length
-
     return <Layout>
         <form className={`${styles.form} darkgray-bg`} typeof="submit" action="/api/polls" method="post" onSubmit={handleSubmit}>
             <p>Input your poll data</p>
@@ -87,7 +104,7 @@ export default function IndexPage() {
                     type="text"
                     className={`${styles.textInput} ${styles.questionInput}`}
                     value={question}
-                    onChange={(e) => setQuestion(e.target.value)}
+                    onChange={handleQuestionChange}
                 />
                 <div className={styles.savedOptions}>
                 {savedOptions.map((o, index) => (
@@ -106,7 +123,7 @@ export default function IndexPage() {
                     type="text"
                     className={`${styles.textInput} ${styles.optionInput}`}
                     value={option}
-                    onChange={(e) => setOption(e.target.value)}
+                    onChange={handleOptionChange}
                     onKeyDown={(e) => handleKeyDown(e)}
                 />
                 <button
@@ -123,7 +140,7 @@ export default function IndexPage() {
                     <DatePicker selected={expires} onChange={(date: Date) => setExpires(date)} />
                 </div>
             </div>
-            <input className={`${styles.primaryBtn} full-width`} type="submit" disabled={isDisabled} value="Create" />
+            <input className={`${styles.primaryBtn} full-width`} type="submit" value="Create" />
             <p>{errorMessage}</p>
             <LoadingAnimation visible={loading} />
         </form>
