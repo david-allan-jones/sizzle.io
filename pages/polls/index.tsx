@@ -6,6 +6,7 @@ import { createCreatorTokenStore } from "@/store/creator_token"
 import DatePicker from 'react-datepicker'
 import { LoadingAnimation } from "@/components/LoadingAnimation"
 import styles from '@/styles/Home.module.css'
+import { OPTION_LEN_LIMIT, OPTION_LIMIT, QUESTION_LEN_LIMIT } from "@/utils/consts"
 
 const ONE_DAY = 86400000
 
@@ -26,8 +27,8 @@ export default function IndexPage() {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
-        if (question.length > 100) {
-            setErrorMessage('Questions can only be 100 characters or less.')
+        if (question.length === 0 || question.length > QUESTION_LEN_LIMIT) {
+            setErrorMessage('Questions must be between 1-100 characters.')
             return
         }
         if (savedOptions.length < 2) {
@@ -69,7 +70,7 @@ export default function IndexPage() {
     }
 
     const handleAddOption = () => {
-        if (savedOptions.length === 10) {
+        if (savedOptions.length === OPTION_LIMIT) {
             setErrorMessage('You may only enter a max of 10 options')
             return
         }
@@ -77,7 +78,7 @@ export default function IndexPage() {
             setErrorMessage('You may not use an empty string as an option')
             return
         }
-        if (option.length > 100) {
+        if (option.length > OPTION_LEN_LIMIT) {
             setErrorMessage('You may only use options that are 100 characters or less')
             return
         }
@@ -128,7 +129,6 @@ export default function IndexPage() {
                 />
                 <button
                     className={`${styles.secondaryBtn} ${styles.addOptionBtn}`}
-                    disabled={option === ""}
                     type="button"
                     onClick={handleAddOption}
                     style={{ width: '40px', height: '40px' }}

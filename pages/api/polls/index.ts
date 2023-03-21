@@ -4,6 +4,7 @@ import { getBearerToken } from '@/utils/nextRequest';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { Option } from '@/store/redis';
 import { calculateTtl } from '@/utils/ttl';
+import { MAX_POLL_TTL_IN_DAYS, OPTION_LEN_LIMIT, OPTION_LIMIT, QUESTION_LEN_LIMIT } from '@/utils/consts';
 
 export interface PollApiData {
   id?: string
@@ -45,10 +46,22 @@ export default async function handler(req: PollApiRequest, res: PollApiResponse)
       if (typeof req.body.question !== 'string') {
         return res.status(400).end()
       }
-      if (req.body.options.length >= 10) {
+      if (req.body.question.length > QUESTION_LEN_LIMIT) {
         return res.status(400).end()
       }
+      if (req.body.options.length > OPTION_LIMIT) {
+        return res.status(400).end()
+      }
+      for (let i = 0; i < req.body.options.length; i++) {
+        if (req.body.options[i].length > OPTION_LEN_LIMIT) {
+          return res.status(400).end()
+        }
+      }
       if (typeof req.body.expires_timestamp !== 'number') {
+        return res.status(400).end()
+      }
+      const NOW_IN_SECONDS = (new Date()).getTime() / 1000
+      if  (((req.body.expires_timestamp - NOW_IN_SECONDS) / 86400) > MAX_POLL_TTL_IN_DAYS) {
         return res.status(400).end()
       }
 
