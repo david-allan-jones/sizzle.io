@@ -48,10 +48,14 @@ export default function IndexPage() {
                 expires_timestamp: Math.floor(expires.getTime() / 1000),
             })
         })
-        const { success, payload } = await res.json() as WritePollResponseData
+        const { success, payload, error } = await res.json() as WritePollResponseData
         if (!success) {
             setLoading(false)
-            setErrorMessage('There was a problem creating your poll. Please wait and try again later.')
+            if (error) {
+                setErrorMessage(error.message)
+            } else {
+                setErrorMessage('There was a problem creating your poll. Please wait and try again later.')
+            }
             return
         }
         const tokenStore = createCreatorTokenStore()

@@ -1,6 +1,5 @@
 import { createRedis } from '@/store/redis';
 import { generateRandomBase64String } from '@/utils/base64';
-import { getBearerToken } from '@/utils/nextRequest';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { Option } from '@/store/redis';
 import { calculateTtl } from '@/utils/ttl';
@@ -18,6 +17,9 @@ export type WritePollResponseData = {
   payload?: {
     id: string,
     creator_token: string,
+  },
+  error?: {
+    message: string
   }
 }
 
@@ -43,26 +45,57 @@ const createId = () => generateRandomBase64String(16)
 
 export default async function handler(req: PollApiRequest, res: PollApiResponse) {
     if (req.method === 'POST') {
+      console.log(req.body)
       if (typeof req.body.question !== 'string') {
-        return res.status(400).end()
+        return res.status(400).json({
+          success: false,
+          error: {
+            message: '"question" must be a string'
+          }
+        })
       }
       if (req.body.question.length > QUESTION_LEN_LIMIT) {
-        return res.status(400).end()
+        return res.status(400).json({
+          success: false,
+          error: {
+            message: `"question" must be between 1-${QUESTION_LEN_LIMIT} characters`
+          }
+        })
       }
       if (req.body.options.length > OPTION_LIMIT) {
-        return res.status(400).end()
+        return res.status(400).json({
+          success: false,
+          error: {
+            message: `"options" must have between 2-${OPTION_LIMIT} strings`
+          }
+        })
       }
       for (let i = 0; i < req.body.options.length; i++) {
         if (req.body.options[i].length > OPTION_LEN_LIMIT) {
-          return res.status(400).end()
+          return res.status(400).json({
+            success: false,
+            error: {
+              message: `"options" strings must be between 1-${OPTION_LEN_LIMIT} characters`
+            }
+          })
         }
       }
       if (typeof req.body.expires_timestamp !== 'number') {
-        return res.status(400).end()
+        return res.status(400).json({
+          success: false,
+          error: {
+            message: '"expires_timestamp" must be a unix timestamp'
+          }
+        })
       }
       const NOW_IN_SECONDS = (new Date()).getTime() / 1000
       if  (((req.body.expires_timestamp - NOW_IN_SECONDS) / 86400) > MAX_POLL_TTL_IN_DAYS) {
-        return res.status(400).end()
+        return res.status(400).json({
+          success: false,
+          error: {
+            message: `"expires_timestamp" can be a max of ${MAX_POLL_TTL_IN_DAYS} days`
+          }
+        })
       }
 
       const redis = createRedis()
