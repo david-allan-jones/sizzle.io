@@ -87,7 +87,6 @@ export default function IndexPage() {
                     type="text"
                     className={`${styles.textInput} ${styles.questionInput}`}
                     value={question}
-                    placeholder="What is your favorite color?"
                     onChange={(e) => setQuestion(e.target.value)}
                 />
                 <div className={styles.savedOptions}>
@@ -107,7 +106,6 @@ export default function IndexPage() {
                     type="text"
                     className={`${styles.textInput} ${styles.optionInput}`}
                     value={option}
-                    placeholder="Option #1"
                     onChange={(e) => setOption(e.target.value)}
                     onKeyDown={(e) => handleKeyDown(e)}
                 />
