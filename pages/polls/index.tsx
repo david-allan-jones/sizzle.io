@@ -18,11 +18,13 @@ export default function IndexPage() {
     const [errorMessage, setErrorMessage] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
 
-    const questionInputRef = useRef(null)
-    const optionInputRef = useRef(null)
+    const questionInputRef = useRef<HTMLElement>(null)
+    const optionInputRef = useRef<HTMLElement>(null)
 
     useEffect(() => {
-        questionInputRef.current.focus()
+        if (questionInputRef.current) {
+            questionInputRef.current.focus()
+        }
     }, [])
 
     const handleSubmit = async (e: FormEvent) => {
@@ -88,14 +90,18 @@ export default function IndexPage() {
         }
         setSavedOptions([...savedOptions, option])
         setOption('')
-        optionInputRef.current.focus()
+        if (optionInputRef.current) {
+            optionInputRef.current.focus()
+        }
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Enter') {
             e.preventDefault()
             handleAddOption()
-            optionInputRef.current.scrollIntoView();
+            if (optionInputRef.current) {
+                optionInputRef.current.scrollIntoView()
+            }
         }
     }
 
@@ -129,7 +135,7 @@ export default function IndexPage() {
                     className={`${styles.textInput} ${styles.optionInput}`}
                     value={option}
                     onChange={handleOptionChange}
-                    onKeyDown={(e) => handleKeyDown(e)}
+                    onKeyDown={(e) => handleKeyDown(e as any)}
                 />
                 <button
                     className={`${styles.secondaryBtn} ${styles.addOptionBtn}`}
