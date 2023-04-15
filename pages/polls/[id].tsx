@@ -1,5 +1,5 @@
 import { Layout } from "@/components/Layout"
-import { LoadingAnimation } from "@/components/LoadingAnimation"
+import { LoadingSpinner } from "@/components/LoadingAnimation"
 import { createAnswerStore } from "@/store/answer_store"
 import { createCreatorTokenStore } from "@/store/creator_token"
 import { createRedis, Option, PollData } from "@/store/redis"
@@ -112,7 +112,9 @@ export default function IndexPage(props: Props) {
             </div>
             <p>{errorMessage}</p>
         </form>
-        <LoadingAnimation visible={loading} />
+        <div className={styles.horizontalCenter}>
+            {loading && <LoadingSpinner />}
+        </div>
     </Layout>
 }
 

@@ -10,6 +10,10 @@ html, body {
     width: 100%;
 }
 
+.horizontal-center {
+    text-align: center;
+}
+
 .darkgray-bg {
     background-color: #383838cd;
     padding: 12px;

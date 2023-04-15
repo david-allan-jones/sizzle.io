@@ -99,8 +99,12 @@
     transition: background-color 0.5s ease;
 }
 
-.form {
+.horizontalCenter {
     text-align: center;
+}
+
+.form {
+    margin-bottom: 12px;
 }
 
 .form > div {
@@ -185,4 +189,23 @@
 
 .pollAnswerInputs button {
     flex: 1
+}
+
+.spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 8px solid white;
+    border-left-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+    transform: rotate(0deg);
+    }
+    100% {
+    transform: rotate(360deg);
+    }
 }
