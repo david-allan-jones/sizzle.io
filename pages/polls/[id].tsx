@@ -103,12 +103,11 @@ export default function IndexPage(props: Props) {
                 </label>)}
             </div>
             <div>
-                <input
+                {!answersVisible && <input
                     className={styles.primaryBtn}
                     type="submit"
                     value="Submit"
-                    disabled={answersVisible || (!answersVisible && selectedIdx === -1)}
-                />
+                />}
                 <p>{errorMessage}</p>
                 {deleteVisible && <button className={styles.deleteBtn} onClick={handleDelete}>Delete</button>}
             </div>
