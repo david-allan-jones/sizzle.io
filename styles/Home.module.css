@@ -172,3 +172,17 @@
     background: transparent;
     border-bottom: 1px solid #FFB200;
 }
+
+.pollAnswerInputs {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.pollAnswerInputs input {
+    flex: 3;
+}
+
+.pollAnswerInputs button {
+    flex: 1
+}

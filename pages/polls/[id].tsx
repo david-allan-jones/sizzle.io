@@ -102,15 +102,16 @@ export default function IndexPage(props: Props) {
                     {answersVisible && <p>{o.count} answers</p>}
                 </label>)}
             </div>
-            <div>
-                {!answersVisible && <input
+            <div className={styles.pollAnswerInputs}>
+                {answersVisible && <input
                     className={styles.primaryBtn}
                     type="submit"
                     value="Submit"
+                    disabled={answersVisible || (!answersVisible && selectedIdx === -1)}
                 />}
-                <p>{errorMessage}</p>
                 {deleteVisible && <button className={styles.deleteBtn} onClick={handleDelete}>Delete</button>}
             </div>
+            <p>{errorMessage}</p>
         </form>
         <LoadingAnimation visible={loading} />
     </Layout>
