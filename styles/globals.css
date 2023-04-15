@@ -21,10 +21,6 @@ html, body {
   cursor: pointer;
 }
 
-.icon-button-container:hover svg path {
-  fill: #FFB200;
-}
-
 .horizontal-center {
     text-align: center;
 }
