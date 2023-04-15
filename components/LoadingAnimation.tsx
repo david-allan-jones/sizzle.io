@@ -1,7 +1,5 @@
-type Props = {
-    visible: boolean,
-}
+import styles from '@/styles/Home.module.css'
 
-export function LoadingAnimation(props: Props) {
-    return <p style={{ display: props.visible ? 'inline': 'none' }}>Loading...</p>
+export function LoadingSpinner() {
+    return <div className={styles.spinner}></div>
 }

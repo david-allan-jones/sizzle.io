@@ -10,9 +10,7 @@
 }
 
 .footer {
-    bottom: 0;
     height: 100px;
-    position: sticky;
     width: 100%;
     background-color: #383838;
     padding-bottom: 10px;

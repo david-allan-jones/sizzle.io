@@ -99,8 +99,18 @@
     transition: background-color 0.5s ease;
 }
 
-.form {
+.shareLinksContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 0.3em;
+}
+
+.horizontalCenter {
     text-align: center;
+}
+
+.form {
+    margin-bottom: 12px;
 }
 
 .form > div {
@@ -171,4 +181,37 @@
     border: none;
     background: transparent;
     border-bottom: 1px solid #FFB200;
+}
+
+.pollAnswerInputs {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.pollAnswerInputs input {
+    flex: 3;
+}
+
+.pollAnswerInputs button {
+    flex: 1
+}
+
+.spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 8px solid white;
+    border-left-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+    transform: rotate(0deg);
+    }
+    100% {
+    transform: rotate(360deg);
+    }
 }
