@@ -2,7 +2,7 @@ import { IconButtonBase } from "./IconButtonBase";
 
 function shareToFacebook() {
     const url = encodeURIComponent(window.location.href);
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}text=fjklds`;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
     window.open(facebookUrl, '_blank');
 }
 
