@@ -4,7 +4,7 @@ import { Layout } from "@/components/Layout"
 import { WritePollResponseData } from "../api/polls"
 import { createCreatorTokenStore } from "@/store/creator_token"
 import DatePicker from 'react-datepicker'
-import { LoadingAnimation } from "@/components/LoadingAnimation"
+import { LoadingSpinner } from "@/components/LoadingAnimation"
 import styles from '@/styles/Home.module.css'
 import { OPTION_LEN_LIMIT, OPTION_LIMIT, QUESTION_LEN_LIMIT } from "@/utils/consts"
 
@@ -152,7 +152,9 @@ export default function IndexPage() {
             </div>
             <input className={`${styles.primaryBtn} full-width`} type="submit" value="Create" />
             <p>{errorMessage}</p>
-            <LoadingAnimation visible={loading} />
         </form>
+        <div className={styles.horizontalCenter}>
+            {loading && <LoadingSpinner />}
+        </div>
     </Layout>
 }
