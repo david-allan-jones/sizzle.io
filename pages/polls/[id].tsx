@@ -5,6 +5,9 @@ import { createCreatorTokenStore } from "@/store/creator_token"
 import { createRedis, Option, PollData } from "@/store/redis"
 import React, { FormEvent, useEffect, useState } from "react"
 import styles from '@/styles/Home.module.css'
+import { MailIcon } from "@/components/icons/MailIcon"
+import { FacebookIcon } from "@/components/icons/Facebook"
+import { TwitterIcon } from "@/components/icons/TwitterIcon"
 
 export type PollApiResponseData = {
     question: string,
@@ -109,6 +112,11 @@ export default function IndexPage(props: Props) {
                     value="Submit"
                 />}
                 {deleteVisible && <button className={styles.deleteBtn} onClick={handleDelete}>Delete</button>}
+            </div>
+            <div className={styles.shareLinksContainer}>
+                <MailIcon />
+                <FacebookIcon />
+                <TwitterIcon />
             </div>
             <p>{errorMessage}</p>
         </form>
