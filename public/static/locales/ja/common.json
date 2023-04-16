@@ -1,0 +1,30 @@
+{
+    "common": {
+        "welcomeTo": "ようこそ",
+        "sizzle": "Sizzle!",
+        "startNewPoll": "投票を作成する",
+
+        "inputPollData": "投票の内容を入力してください",
+        "questionLabel": "質問:",
+        "optionLabel": "選択:",
+        "dateLabel": "有効期限:",
+        "createButtonLabel": "作成する",
+        "questionLengthError": "質問は100文字以内で入力してください",
+        "notEnoughOptionsError": "選択肢は2つ以上入力してください",
+        "genericPostError": "エラーが発生しました。しばらく経ってからまたお試しください",
+        "maxOptionsError": "最大10個までの選択肢を入力できます",
+        "noEmptyStringOptionError": "空白の入力はできません",
+        "optionLengthError": "100文字以内の選択肢を入力できます",
+
+        "submitButtonLabel": "回答する",
+        "deleteButtonLabel": "削除する",
+        "answerCount": "{{answers}}件",
+        "answerSubmitError": "エラーが発生しました。しばらく経ってからまたお試しください",
+
+        "author": "製作者",
+        "authorName": "ジョーンズ・デイビッド",
+        "links": "リンク",
+        "sourceCode": "ソースコードはこちら",
+        "contactAuthor": "製作者への問い合わせ"
+    }
+}
