@@ -8,6 +8,9 @@ import styles from '@/styles/Home.module.css'
 import { MailIcon } from "@/components/icons/MailIcon"
 import { FacebookIcon } from "@/components/icons/Facebook"
 import { TwitterIcon } from "@/components/icons/TwitterIcon"
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import { useRouter } from "next/router"
 
 export type PollApiResponseData = {
     question: string,
@@ -29,6 +32,9 @@ export default function IndexPage(props: Props) {
     const [loading, setLoading] = useState<boolean>(false)
     const [errorMessage, setErrorMessage] = useState<string>('')
     const [deleteVisible, setDeleteVisible] = useState<boolean>(false)
+
+    const { t } = useTranslation('common')
+    const router = useRouter()
 
     useEffect(() => {
         const tokenMap = tokenStore.get()
@@ -59,7 +65,7 @@ export default function IndexPage(props: Props) {
         })
         const { success } = await res.json()
         if (!success) {
-            setErrorMessage('There was a submitting your answer. Please wait and try again later.')
+            setErrorMessage(t('common.answerSubmitError').toString())
             setLoading(false)
             return
         }
@@ -80,7 +86,7 @@ export default function IndexPage(props: Props) {
         if (res.status !== 200) {
             return
         }
-        window.location.href = '/'
+        router.push('/')
     }
 
     return <Layout>
@@ -102,17 +108,24 @@ export default function IndexPage(props: Props) {
                     />
                     {o.text}
                     <span className={`${answersVisible ? 'display-none' : 'checkmark'}`}></span>
-                    {answersVisible && <p>{o.count} answers</p>}
+                    {answersVisible && <p>
+                        {t('common.answerCount', { answers: o.count })}
+                    </p>}
                 </label>)}
             </div>
             <div className={styles.pollAnswerInputs}>
                 {!answersVisible && <input
                     className={styles.primaryBtn}
                     type="submit"
-                    value="Submit"
+                    value={t('common.submitButtonLabel').toString()}
                     disabled={selectedIdx === -1}
                 />}
-                {deleteVisible && <button className={styles.deleteBtn} onClick={handleDelete}>Delete</button>}
+                {deleteVisible && <button
+                    className={styles.deleteBtn}
+                    onClick={handleDelete}
+                >
+                    {t('common.deleteButtonLabel').toString()}
+                </button>}
             </div>
             <div className={styles.shareLinksContainer}>
                 <MailIcon />
@@ -127,9 +140,14 @@ export default function IndexPage(props: Props) {
     </Layout>
 }
 
-export const getServerSideProps = async (context: { params: { id: string }}) => {
+export const getServerSideProps = async (
+    context: {
+        params: { id: string },
+        locale: string
+    }
+) => {
     const id = context.params.id
-    
+
     const redis = createRedis()
     redis.on('error', (err) => {
         console.error(err)
@@ -143,6 +161,9 @@ export const getServerSideProps = async (context: { params: { id: string }}) => 
     const pollData = JSON.parse(value) as PollData
     return {
         props: {
+            ...(await serverSideTranslations(context.locale, [
+                'common',
+            ])),
             id,
             data: {
                 question: pollData.question,
