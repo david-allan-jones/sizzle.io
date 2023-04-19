@@ -74,7 +74,9 @@ export default function IndexPage(props: Props) {
         window.location.reload()
     }
 
-    const handleDelete = async () => {
+    const handleDelete = async (e: FormEvent) => {
+		e.preventDefault()
+		setLoading(true)
         const res = await fetch(`/api/polls/${props.id}`, {
             method: 'DELETE',
             headers: {
