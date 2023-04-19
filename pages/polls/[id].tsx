@@ -10,6 +10,7 @@ import { FacebookIcon } from "@/components/icons/Facebook"
 import { TwitterIcon } from "@/components/icons/TwitterIcon"
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import { useRouter } from "next/router"
 
 export type PollApiResponseData = {
     question: string,
@@ -33,6 +34,7 @@ export default function IndexPage(props: Props) {
     const [deleteVisible, setDeleteVisible] = useState<boolean>(false)
 
     const { t } = useTranslation('common')
+    const router = useRouter()
 
     useEffect(() => {
         const tokenMap = tokenStore.get()
@@ -84,7 +86,7 @@ export default function IndexPage(props: Props) {
         if (res.status !== 200) {
             return
         }
-        window.location.href = '/'
+        router.push('/')
     }
 
     return <Layout>
@@ -145,7 +147,7 @@ export const getServerSideProps = async (
     }
 ) => {
     const id = context.params.id
-    
+
     const redis = createRedis()
     redis.on('error', (err) => {
         console.error(err)

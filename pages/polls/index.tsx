@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 import { Option } from "@/components/Option"
 import { Layout } from "@/components/Layout"
 import { WritePollResponseData } from "../api/polls"
@@ -9,6 +9,7 @@ import styles from '@/styles/Home.module.css'
 import { OPTION_LEN_LIMIT, OPTION_LIMIT, QUESTION_LEN_LIMIT } from "@/utils/consts"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import { useRouter } from "next/router"
 
 const ONE_DAY = 86400000
 
@@ -24,6 +25,7 @@ export default function IndexPage() {
     const optionInputRef = useRef<any>(null)
 
     const { t } = useTranslation('common')
+    const router = useRouter()
 
     useEffect(() => {
         if (questionInputRef.current) {
@@ -66,7 +68,7 @@ export default function IndexPage() {
         }
         const tokenStore = createCreatorTokenStore()
         tokenStore.append(payload?.id as string, payload?.creator_token as string)
-        window.location.href = `/polls/${payload?.id}`
+        router.push(`/polls/${payload?.id}`)
     }
 
     const handleQuestionChange = (e: { target: { value: string }}) => {
