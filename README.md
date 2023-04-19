@@ -1,4 +1,7 @@
 # **sizzle.io**
+<p align="center">
+  <img src="https://sizzle-io.vercel.app/images/favicon.ico" alt="sizzle.io Logo"/>
+</p>
 
 ## Introduction
 
