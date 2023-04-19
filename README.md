@@ -72,6 +72,11 @@ If you succeeded, you should see something that looks like below appear in your 
 ```
 Now that you have a Redis server running locally, try creating some polls in the web frontend and see the result.
 
+To learn more about Redis, take a look at the following resource:
+
+- [Redis Documentation](https://redis.io/docs/) - Learn about Redis features and management.
+- [Try Redis](https://try.redis.io/) - an web based Redis client you can play around in.
+
 ## Deploying
 
 When deploying the web frontend, you may need to configure a few environment variables if your Redis server is secured with username and password credentials.
@@ -84,4 +89,4 @@ The environment variables are:
 
 ## Contact
 
-If you have any questions for me, feel free to contact me through my website at [my website](https://www.davidjonesdev.com/contact).
+If you have any questions for me, feel free to contact me through [my website](https://www.davidjonesdev.com/contact).
