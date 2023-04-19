@@ -6,7 +6,7 @@
 
         "inputPollData": "投票の内容を入力してください",
         "questionLabel": "質問:",
-        "optionLabel": "選択:",
+        "optionLabel": "選択肢:",
         "dateLabel": "有効期限:",
         "createButtonLabel": "作成する",
         "questionLengthError": "質問は100文字以内で入力してください",
