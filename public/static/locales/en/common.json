@@ -1,0 +1,30 @@
+{
+    "common": {
+        "welcomeTo": "Welcome to",
+        "sizzle": "Sizzle!",
+        "startNewPoll": "Start a new poll",
+
+        "inputPollData": "Input your poll data",
+        "questionLabel": "Question:",
+        "optionLabel": "Option:",
+        "dateLabel": "Expiration Date:",
+        "createButtonLabel": "Create",
+        "questionLengthError": "Questions must be between 1-100 characters.",
+        "notEnoughOptionsError": "You need to provide at least 2 options a poll.",
+        "genericPostError": "There was a problem creating your poll. Please wait and try again later.",
+        "maxOptionsError": "You may only enter a max of 10 options",
+        "noEmptyStringOptionError": "You may not use an empty string as an option",
+        "optionLengthError": "You may only use options that are 100 characters or less",
+
+        "submitButtonLabel": "Submit",
+        "deleteButtonLabel": "Delete",
+        "answerCount": "{{answers}} answers",
+        "answerSubmitError": "There was an issue submitting your answer. Please wait and try again later.",
+
+        "author": "AUTHOR",
+        "authorName": "David Jones",
+        "links": "LINKS",
+        "sourceCode": "Source Code",
+        "contactAuthor": "Contact Author"
+    }
+}
