@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout"
 import { LoadingSpinner } from "@/components/LoadingAnimation"
+import AnswerList from "@/components/polls/AnswerList"
 import { createAnswerStore } from "@/store/answer_store"
 import { createCreatorTokenStore } from "@/store/creator_token"
 import { createRedis, Option, PollData } from "@/store/redis"
@@ -11,6 +12,7 @@ import { TwitterIcon } from "@/components/icons/TwitterIcon"
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useRouter } from "next/router"
+import ResultChart from "@/components/polls/ResultChart"
 
 export type PollApiResponseData = {
     question: string,
@@ -99,21 +101,10 @@ export default function IndexPage(props: Props) {
             method="post"
             onSubmit={handleSubmit}
         >
-            <p>{props.data.question}</p>
+            <p style={{ borderBottom: '1px solid white' }}>{props.data.question}</p>
             <div>
-                {props.data.options.map((o, i) => <label key={i} htmlFor={o.text} className="radio-container">
-                    <input
-                        disabled={answersVisible}
-                        type="radio"
-                        onChange={() => setSelectedIdx(i)} id={o.text}
-                        name="answer-radio"
-                    />
-                    {o.text}
-                    <span className={`${answersVisible ? 'display-none' : 'checkmark'}`}></span>
-                    {answersVisible && <p>
-                        {t('common.answerCount', { answers: o.count })}
-                    </p>}
-                </label>)}
+                {!answersVisible && <AnswerList options={props.data.options} onIndexChange={setSelectedIdx}/>}
+                {answersVisible && <ResultChart options={props.data.options} />}  
             </div>
             <div className={styles.pollAnswerInputs}>
                 {!answersVisible && <input
@@ -130,6 +121,7 @@ export default function IndexPage(props: Props) {
                 </button>}
             </div>
             <div className={styles.shareLinksContainer}>
+                <p>Share:</p>
                 <MailIcon />
                 <FacebookIcon />
                 <TwitterIcon />

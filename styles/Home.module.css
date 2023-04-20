@@ -50,53 +50,50 @@
     text-align: center;
 }
 
-.primaryBtn {
-    color: white;
-    background-color: transparent;
-    border: solid 2px #946800;
+.primaryBtn, .secondaryBtn, .deleteBtn {
     border-radius: 10px;
     height: 40px;
     line-height: 40px;
-    transition: background-color 0.3s ease;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.primaryBtn {
+    color: white;
+    background-color: #4681F4; 
 }
 
 .primaryBtn:hover {
     cursor: pointer;
-    background-color: #FFB200;
-    transition: background-color 0.5s ease;
+    background-color: #2d58a1;
 }
 
 .secondaryBtn {
-    color: white;
-    background-color: transparent;
-    border: solid 2px #946800;
-    border-radius: 10px;
+    color: black;
+    background-color: #dcdcdc;
     width: 40px;
-    height: 40px;
-    line-height: 40px;
-    transition: background-color 0.3s ease;
 }
 
 .secondaryBtn:hover {
     cursor: pointer;
-    background-color: #FFB200;
-    transition: background-color 0.5s ease;
+    background-color: #9a9a9a;
 }
 
 .deleteBtn {
     color: white;
-    background-color: transparent;
-    border: solid 2px #946800;
+    background-color: #e74c3c;
     border-radius: 10px;
     height: 40px;
     line-height: 40px;
-    transition: background-color 0.3s ease;
+    border: none;
+    outline: none;
+    box-shadow: none;
 }
 
 .deleteBtn:hover {
+    background-color: #c0392b;
     cursor: pointer;
-    background-color: #FFB200;
-    transition: background-color 0.5s ease;
 }
 
 .shareLinksContainer {
