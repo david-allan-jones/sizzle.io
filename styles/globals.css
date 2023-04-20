@@ -39,6 +39,7 @@ html, body {
     margin-bottom: 12px;
     cursor: pointer;
     user-select: none;
+    overflow-wrap: anywhere;
   }
   
   /* Hide the browser's default radio button */
