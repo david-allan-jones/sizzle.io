@@ -101,7 +101,7 @@ export default function IndexPage(props: Props) {
             method="post"
             onSubmit={handleSubmit}
         >
-            <p>{props.data.question}</p>
+            <p style={{ borderBottom: '1px solid white' }}>{props.data.question}</p>
             <div>
                 {!answersVisible && <AnswerList options={props.data.options} onIndexChange={setSelectedIdx}/>}
                 {answersVisible && <ResultChart options={props.data.options} />}  
@@ -121,6 +121,7 @@ export default function IndexPage(props: Props) {
                 </button>}
             </div>
             <div className={styles.shareLinksContainer}>
+                <p>Share:</p>
                 <MailIcon />
                 <FacebookIcon />
                 <TwitterIcon />
