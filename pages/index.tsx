@@ -9,10 +9,10 @@ export default function IndexPage() {
 
     return <Layout>
         <div className={`${styles.container} darkgray-bg`}>
-            <p className={styles.noMargin}>{t('common.welcomeTo')}</p>
-            <p className={styles.sizzle}>{t('common.sizzle')}</p>
+            <p data-test='welcome-1' className={styles.noMargin}>{t('common.welcomeTo')}</p>
+            <p data-test='welcome-2' className={styles.sizzle}>{t('common.sizzle')}</p>
             <Link className={styles.link} href="/polls">
-                <div className={styles.primaryBtn}>
+                <div data-test='create-btn' className={styles.primaryBtn}>
                     {t('common.startNewPoll')}
                 </div>
             </Link>

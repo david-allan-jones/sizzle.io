@@ -113,10 +113,11 @@ export default function IndexPage() {
 
     return <Layout>
         <form className={`${styles.form} darkgray-bg`} typeof="submit" action="/api/polls" method="post" onSubmit={handleSubmit}>
-            <p>{t('common.inputPollData')}</p>
+            <p data-test='input-prompt'>{t('common.inputPollData')}</p>
             <div className={styles.grid}>
-                <span className={styles.questionPrompt}>{t('common.questionLabel')}</span>
+                <span data-test='question-prompt' className={styles.questionPrompt}>{t('common.questionLabel')}</span>
                 <input
+                    data-test='question-input'
                     ref={questionInputRef}
                     type="text"
                     className={`${styles.textInput} ${styles.questionInput}`}
@@ -134,8 +135,9 @@ export default function IndexPage() {
                     />
                 ))}
                 </div>
-                <span className={styles.optionPrompt}>{t('common.optionLabel')}</span>
+                <span data-test='option-prompt' className={styles.optionPrompt}>{t('common.optionLabel')}</span>
                 <input
+                    data-test='option-input'
                     ref={optionInputRef}
                     type="text"
                     className={`${styles.textInput} ${styles.optionInput}`}
@@ -144,6 +146,7 @@ export default function IndexPage() {
                     onKeyDown={(e) => handleKeyDown(e as any)}
                 />
                 <button
+                    data-test='add-option-btn'
                     className={`${styles.secondaryBtn} ${styles.addOptionBtn}`}
                     type="button"
                     onClick={handleAddOption}
@@ -161,7 +164,7 @@ export default function IndexPage() {
                 type="submit"
                 value={t('common.createButtonLabel').toString()}
             />
-            <p>{errorMessage}</p>
+            <p data-test='error'>{errorMessage}</p>
         </form>
         <div className={styles.horizontalCenter}>
             {loading && <LoadingSpinner />}
