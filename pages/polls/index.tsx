@@ -154,7 +154,7 @@ export default function IndexPage() {
                 >
                     +
                 </button>
-                <span className={styles.datePrompt}>{t('common.dateLabel')}</span>
+                <span data-test='expiration-date-prompt' className={styles.datePrompt}>{t('common.dateLabel')}</span>
                 <div className={styles.dateInput}>
                     <DatePicker selected={expires} onChange={(date: Date) => setExpires(date)} />
                 </div>
