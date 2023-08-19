@@ -21,16 +21,12 @@ This section will cover how to spin up the web frontend.
 First, install the dependencies (I use yarn, and a yarn.lock file is included):
 ```bash
 yarn
-#or
-npm install
 ```
 
-First, run the development server:
+After installing dependencies, spin up the development server:
 
 ```bash
 yarn dev
-#or
-npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -79,6 +75,19 @@ To learn more about Redis, take a look at the following resource:
 
 - [Redis Documentation](https://redis.io/docs/) - Learn about Redis features and management.
 - [Try Redis](https://try.redis.io/) - an web based Redis client you can play around in.
+
+## Testing
+
+This repository includes a suite of Cypress tests that can be run very easily from command line. You can open Cypress and run these tests using the command
+```bash
+yarn cy:open
+```
+or if you want to run in headless mode use
+```bash
+yarn cy:run
+```
+To learn more about Cypress, take a look at the following resources:
+- [Cypress Documentation](https://docs.cypress.io/guides/overview/why-cypress)
 
 ## Deploying
 
