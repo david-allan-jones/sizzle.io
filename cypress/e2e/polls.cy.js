@@ -127,4 +127,18 @@ describe('polls.cy.js', () => {
         cy.get('[data-test="error"]')
             .should('have.text', 'You may only use options that are 100 characters or less')
     })
+
+    it('happy path', () => {
+        cy.get('[data-test="question-input"]')
+            .type('test question')
+        cy.get('[data-test="option-input')
+            .type('option 1')
+            .type('{enter}')
+            .type('option 2')
+            .type('{enter}')
+        cy.get('input[type="submit"]')
+            .click()
+
+        cy.url().should('match', /polls\/[\w\-\_]+/)
+    })
 })

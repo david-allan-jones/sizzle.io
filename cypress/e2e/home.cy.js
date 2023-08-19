@@ -17,4 +17,11 @@ describe('home.cy.js', () => {
         cy.get('[data-test="create-btn"')
             .should('have.text', 'Start a new poll')
     })
+
+    it('should navigate to poll input page when button is hit', () => {
+        cy.get('[data-test="create-btn"]')
+            .click()
+
+        cy.url().should('match', /polls/)
+    })
 })
