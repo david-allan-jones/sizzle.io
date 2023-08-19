@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
   },
   "dependencies": {
     "@types/node": "18.14.6",
@@ -27,6 +29,8 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@types/react-datepicker": "^4.10.0"
+    "@types/react-datepicker": "^4.10.0",
+    "cypress": "^12.17.4",
+    "eslint-plugin-cypress": "^2.14.0"
   }
 }
