@@ -117,6 +117,22 @@ describe('polls.cy.js', () => {
             .should('have.text', 'You may only enter a max of 10 options')
     })
 
+    it('should show error when trying to submit only 1 option', () => {
+        const value = 'abc'
+        cy.get('[data-test="question-input"]')
+            .type('test')
+        
+        cy.get('[data-test="option-input"]')
+            .type(value)
+            .type('{enter}')
+
+        cy.get('input[type="submit"]')
+            .click()
+
+        cy.get('[data-test="error"]')
+            .should('have.text', 'You need to provide at least 2 options a poll.')
+    })
+
     it('should show error if you try to submit long question', () => {
         cy.get('[data-test="question-input"]')
             .type('x'.repeat(101))
